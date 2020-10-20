@@ -1,0 +1,17 @@
+{
+  "name": "rootine-api-test",
+  "version": "1.0.0",
+  "description": "automated tests for rootine API",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -r esm"
+  },
+  "author": "Matt Lovan",
+  "license": "MIT",
+  "dependencies": {
+    "esm": "^3.2.25",
+    "faker": "^5.1.0",
+    "mocha": "^8.2.0",
+    "node-fetch": "^2.6.1"
+  }
+}
