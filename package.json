@@ -4,7 +4,8 @@
   "description": "automated tests for rootine API",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -r esm"
+    "test": "mocha -r esm",
+    "test-one": "npx mocha -r esm -g "
   },
   "author": "Matt Lovan",
   "license": "MIT",

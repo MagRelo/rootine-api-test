@@ -1,9 +1,15 @@
 const fetch = require('node-fetch');
 
 export const apiVersion = process.env.API_VERSION || 'v1_0';
-export const baseUrl = process.env.BASE_URL || 'https://api.claya.com';
+export const baseUrl = process.env.BASE_URL || 'api.claya.com';
 
-export async function callApi({ method, endpoint, body = null, token = null }) {
+export async function callApi({
+  method,
+  endpoint,
+  body = null,
+  token = null,
+  protocol = 'https',
+}) {
   // setup request
   const options = {
     method: method,
@@ -22,7 +28,7 @@ export async function callApi({ method, endpoint, body = null, token = null }) {
   // call promise?
   try {
     const response = await fetch(
-      `${baseUrl}/${apiVersion}/${endpoint}`,
+      `${protocol}://${baseUrl}/${apiVersion}/${endpoint}`,
       options
     );
 

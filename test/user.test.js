@@ -12,8 +12,28 @@ const endpoint = 'partner_api/user/submit';
 
 // Submit User
 describe('User Submit', async function () {
+  describe('Wrong Protocol - HTTPS', function () {
+    it('returns a 302', async function () {
+      const response = await callApi({
+        method: 'GET',
+        endpoint: endpoint,
+        body: null,
+        token: authToken,
+        protocol: 'http',
+      });
+
+      // console.log(response);
+
+      assert.strictEqual(
+        response.statusCode,
+        302,
+        'does not return a redirect (302)'
+      );
+    });
+  });
+
   describe('Wrong HTTP method - GET', function () {
-    it('returns a 405 error', async function () {
+    it('returns a 405', async function () {
       const response = await callApi({
         method: 'GET',
         endpoint: endpoint,
@@ -193,11 +213,9 @@ describe('User Submit', async function () {
         token: authToken,
       });
 
-      // console.log(response);
-
       assert.strictEqual(
         response.statusCode,
-        200, //change
+        201, //change
         'does not return success - created code (201)' +
           JSON.stringify(response)
       );
@@ -294,6 +312,9 @@ describe('User Get', async function () {
       const fakerUser = generateUser({
         partnerCode: 'AB1235',
         partnerEmail: 'jim@aol.com',
+        includeBlood: false,
+        // includeDNA: false,
+        includeQuestionnaire: false,
       });
 
       this.timeout(10000);
@@ -303,6 +324,9 @@ describe('User Get', async function () {
         body: fakerUser,
         token: authToken,
       });
+
+      console.log(fakerUser);
+      console.log(firstResponse);
 
       // Check that first one was created
       assert.strictEqual(
@@ -322,13 +346,57 @@ describe('User Get', async function () {
         token: authToken,
       });
 
-      // console.log(getResponse);
+      // console.dir(getResponse);
+      // console.dir(getResponse.data.record.nutrients_result);
+      // console.dir(getResponse.data.record.summary_result);
 
       // assert found
       assert.strictEqual(
         getResponse.statusCode,
         200,
         'does not return client error - not found (404)'
+      );
+    });
+  });
+
+  describe('Get User, No Params', function () {
+    it('returns a 400', async function () {
+      // do get
+      const getResponse = await callApi({
+        method: 'GET',
+        endpoint: 'partner_api/user/get',
+        body: null,
+        token: authToken,
+      });
+
+      console.log(getResponse);
+
+      // assert found
+      assert.strictEqual(
+        getResponse.statusCode,
+        400,
+        'does not return client error - bad input (400)'
+      );
+    });
+  });
+
+  describe('Get Non-Existant User', function () {
+    it('returns a 404', async function () {
+      // do get
+      const getResponse = await callApi({
+        method: 'GET',
+        endpoint: 'partner_api/user/get' + '?id=' + '982739837928374293',
+        body: null,
+        token: authToken,
+      });
+
+      console.log(getResponse);
+
+      // assert found
+      assert.strictEqual(
+        getResponse.statusCode,
+        404,
+        'does not return client error - bad input (400)'
       );
     });
   });

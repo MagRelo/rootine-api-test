@@ -1,7 +1,7 @@
 var assert = require('assert');
 const { callApi } = require('./testData/params');
 
-const { generateUser } = require('./testData/user-submit');
+const { generateUser } = require('./testData/generateUser');
 
 export const authToken =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5vdGFzcXVhcmVfdGVzdEBnbWFpbC5jb20iLCJpZCI6MSwibmFtZSI6Im5vdGFzcXVhcmUifQ.H2WyocLxMt84ponJ5Xg0nbZ2QScrjAH4F5QQy7Z_LBU';
