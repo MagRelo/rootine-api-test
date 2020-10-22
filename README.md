@@ -10,8 +10,9 @@
 - Run `npm install` to install dependencies
 
 ## Run Tests
+
 - Run `npm test` to run all tests
-- Run `npx mocha -r esm -g '<some-pattern>'` to run tests that match the pattern
+- Run `npx run test-one <some-pattern>` to run tests that match the pattern
 
 ## Curent Status
 
@@ -63,5 +64,5 @@
   6 passing (19s)
   4 pending
   5 failing
-  
-  ```
+
+```
